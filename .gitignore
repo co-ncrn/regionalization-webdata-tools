@@ -1,0 +1,10 @@
+
+.DS_Store
+
+vendor/
+node_modules/
+config.php
+
+data/tracts/geojson/
+data/tracts/geojson_noprops/
+data/tracts/topojson/
