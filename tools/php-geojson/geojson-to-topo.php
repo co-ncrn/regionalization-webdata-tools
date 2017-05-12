@@ -15,8 +15,27 @@ $limit = 2;
 
 // get list of files
 $root = '/Users/owmundy/Sites/RegionalismMap/code/';
+
+
+// create topojson from geojson
 $path1 = $root . 'regionalization-webdata/data/tracts/geojson_noprops/';
 $path2 = $root . 'regionalization-webdata/data/tracts/topojson/';
+
+// simplify topojson 
+$path1 = $root . 'regionalization-webdata/data/tracts/topojson/';
+$path2 = $root . 'regionalization-webdata/data/tracts/topojson_simplified/';
+
+// quantize 1e5 topojson 
+$path1 = $root . 'regionalization-webdata/data/tracts/topojson/';
+$path2 = $root . 'regionalization-webdata/data/tracts/topojson_quantized_1e5/';
+
+// quantize 1e6 topojson 
+$path1 = $root . 'regionalization-webdata/data/tracts/topojson/';
+$path2 = $root . 'regionalization-webdata/data/tracts/topojson_quantized_1e6/';
+
+
+
+
 $files = scandir($path1);
 $filestr = "";
 
@@ -44,32 +63,36 @@ foreach ($files as $file) {
 	} else {
 		$geojson_file_count++;
 
-
+		
+		// create topojson from geojson
+		// $ geo2topo tracts=16740_tract2.geojson > 16740_tract3.topojson
 		$topojsonfile = str_replace(".geojson", ".topojson", $file);
-
 		$cli = "geo2topo tracts=". $path1.$file ." > ". $path2.$topojsonfile;
+		
+		// simplify topojson 
+		// $ toposimplify -p 1 -f < 16740_tract2.topojson > 16740_tract2-simple.topojson
+		$cli = "toposimplify -p 1 -f < ". $path1.$file ." > ". $path2.$file;
+		
+		// quantize topojson 
+		// $ topoquantize 1e5 < 16740_tract2-simple.topojson > 16740_tract2-simple-quantized.topojson
+		$cli = "topoquantize 1e5 < ". $path1.$file ." > ". $path2.$file;
 
-		exec($cli);
+		// quantize topojson 
+		// $ topoquantize 1e6 < 16740_tract2-simple.topojson > 16740_tract2-simple-quantized.topojson
+		$cli = "topoquantize 1e6 < ". $path1.$file ." > ". $path2.$file;
 
+
+
+
+		exec($cli); // execute the command line
 	}
-
 	//break; // testing
 }
-
-
-
-
 
 
 // reporting
 print $geojson_file_count ." geojson files (". $geojson_missing_count ." missing)\n";
 print $total_file_count ." total files\n";
-
-
-
-
-
-
 
 
 ?>
