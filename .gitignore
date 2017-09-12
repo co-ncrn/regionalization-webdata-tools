@@ -7,4 +7,3 @@ config.php
 
 data/tracts/geojson/
 data/tracts/geojson_noprops/
-data/tracts/topojson/
