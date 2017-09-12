@@ -1,7 +1,7 @@
 <?php
 
 /**
- *	Remove unwanted geojson properties
+ *	Remove unwanted geojson feature properties
  */
 
 require __DIR__ . '/vendor/autoload.php';	// libs

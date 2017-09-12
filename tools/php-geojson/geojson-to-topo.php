@@ -1,7 +1,7 @@
 <?php
 
 /**
- *	Remove unwanted geojson properties
+ *	Geojson > Topojson conversation, simplication, and quantize
  */
 
 require __DIR__ . '/vendor/autoload.php';	// libs

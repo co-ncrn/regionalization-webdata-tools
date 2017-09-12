@@ -1,7 +1,7 @@
 <?php
 
 /**
- *	Import all the CSVs, from each of the ZIPs in Regionalization data, into MySQL
+ *	Import / store metadata
  */
 
 require __DIR__ . '/vendor/autoload.php';	// libs
