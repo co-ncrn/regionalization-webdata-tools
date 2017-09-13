@@ -17,7 +17,7 @@ $limit = 2;
 // get list of directories
 $root = '/Users/owmundy/Sites/RegionalismMap/code/';
 $path   = $root . 'beckymasond.github.io/msa_data/';
-$cppath = $root . 'regionalization-webdata/data/tracts/geojson/';
+$cppath = $root . 'regionalization-webdata-tools/data/tracts/geojson/';
 $dirs = scandir($path);
 $filestr = "";
 

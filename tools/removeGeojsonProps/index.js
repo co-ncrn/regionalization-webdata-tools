@@ -145,7 +145,7 @@ function removeGeojsonPropsInDir(dir,remove,editFunct){
 			// full path to input file
 			inputFile = dir + inputFile;
 			// test
-			//inputFile = "/Users/owmundy/Sites/RegionalismMap/code/regionalization-webdata/data/tracts/geojson/10180_tract.geojson";
+			//inputFile = "/Users/owmundy/Sites/RegionalismMap/code/regionalization-webdata-tools/data/tracts/geojson/10180_tract.geojson";
 			// full path to output file
 			var outputFile = inputFile.replace(".geojson","_clean.geojson");
 			//outputFile = inputFile; // save over original

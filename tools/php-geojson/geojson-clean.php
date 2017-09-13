@@ -13,7 +13,8 @@ $remove = array(
 	"fill","fill-opacity","stroke","stroke-opacity","stroke-width",
 	// remove extra codes https://www2.census.gov/geo/docs/maps-data/data/tiger/prejoined/ACSMetadata2011.txt
 	"STATEFP","COUNTYFP","TRACTCE","MTFCC","NAMELSAD","FUNCSTAT",
-	"INTPTLAT","INTPTLON","NAME","RID","TID","code",
+	"INTPTLAT","INTPTLON","NAME","code",
+	//"RID","TID",
 
 	// gen
 	"65overCV","65overE","65overM",
@@ -52,9 +53,9 @@ $inserttests = 0;
 $limit = 2;
 
 // get list of files
-$root = '/Users/owmundy/Sites/RegionalismMap/code/';
-$path1   = $root . 'regionalization-webdata/data/tracts/geojson/';
-$path2 = $root . 'regionalization-webdata/data/tracts/geojson_noprops/';
+$root = '/Users/owmundy/Sites/RegionalismMap/code/regionalization-webdata-tools/data/tracts/';
+$path1 = $root . 'geojson/';
+$path2 = $root . 'geojson_noprops/';
 $files = scandir($path1);
 $filestr = "";
 
@@ -123,7 +124,8 @@ function removeProps($str){
 		$features_count++;
 
 		// move some vars to different places
-		$arr["features"][$key]["TID"] = $feature["properties"]["TID"]; // set the TID in the feature
+		//$arr["features"][$key]["TID"] = $feature["properties"]["TID"]; // set the TID in the feature
+		//$arr["features"][$key]["properties"]["TID"] = $feature["properties"]["TID"]; // set the TID in the properties too (for later geojson > topojson conversion)
 		$arr["features"][$key]["properties"]["lat"] = $feature["properties"]["INTPTLAT"]; // shorten lat name
 		$arr["features"][$key]["properties"]["lng"] = $feature["properties"]["INTPTLON"]; // shorten lng name
 		// confirm

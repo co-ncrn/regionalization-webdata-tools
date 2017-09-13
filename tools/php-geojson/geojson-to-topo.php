@@ -1,7 +1,8 @@
 <?php
 
 /**
- *	Geojson > Topojson conversation, simplication, and quantize
+ *	Geojson > Topojson conversion, simplication, and quantize
+ *	Executes command line on entire directory of geojson/topojson files
  */
 
 require __DIR__ . '/vendor/autoload.php';	// libs
@@ -14,26 +15,30 @@ $inserttests = 0;
 $limit = 2;
 
 // get list of files
-$root = '/Users/owmundy/Sites/RegionalismMap/code/';
+$root = '/Users/owmundy/Sites/RegionalismMap/code/regionalization-webdata-tools/data/tracts/';
 
-
-// create topojson from geojson
-$path1 = $root . 'regionalization-webdata/data/tracts/geojson_noprops/';
-$path2 = $root . 'regionalization-webdata/data/tracts/topojson/';
+// step 1 - create topojson from geojson
+if ($argv[1] == 'convert-to-topo'){
+	$path1 = $root . 'geojson_noprops/';
+	$path2 = $root . 'topojson/';
+}
+// the other steps (to decrease size)
 
 // simplify topojson 
-$path1 = $root . 'regionalization-webdata/data/tracts/topojson/';
-$path2 = $root . 'regionalization-webdata/data/tracts/topojson_simplified/';
-
+else if ($argv[1] == 'simplify'){
+	$path1 = $root . 'topojson/';
+	$path2 = $root . 'topojson_simplified/';
+}
 // quantize 1e5 topojson 
-$path1 = $root . 'regionalization-webdata/data/tracts/topojson/';
-$path2 = $root . 'regionalization-webdata/data/tracts/topojson_quantized_1e5/';
-
+else if ($argv[1] == 'quantize-1e5'){
+	$path1 = $root . 'topojson/';
+	$path2 = $root . 'topojson_quantized_1e5/';
+}
 // quantize 1e6 topojson 
-$path1 = $root . 'regionalization-webdata/data/tracts/topojson/';
-$path2 = $root . 'regionalization-webdata/data/tracts/topojson_quantized_1e6/';
-
-
+else if ($argv[1] == 'quantize-1e6'){
+	$path1 = $root . 'topojson/';
+	$path2 = $root . 'topojson_quantized_1e6/';
+}
 
 
 $files = scandir($path1);
@@ -42,7 +47,6 @@ $filestr = "";
 // reporting
 $directory_count = $total_file_count = 0;
 $geojson_file_count = $geojson_missing_count = 0;
-$props_removed_count = $features_count = 0;
 
 
 // loop through directories
@@ -66,21 +70,25 @@ foreach ($files as $file) {
 		
 		// create topojson from geojson
 		// $ geo2topo tracts=16740_tract2.geojson > 16740_tract3.topojson
-		$topojsonfile = str_replace(".geojson", ".topojson", $file);
-		$cli = "geo2topo tracts=". $path1.$file ." > ". $path2.$topojsonfile;
-		
+		if ($argv[1] == 'convert-to-topo'){
+			$topojsonfile = str_replace(".geojson", ".topojson", $file);
+			$cli = "geo2topo tracts=". $path1.$file ." > ". $path2.$topojsonfile;
+		}
 		// simplify topojson 
 		// $ toposimplify -p 1 -f < 16740_tract2.topojson > 16740_tract2-simple.topojson
-		$cli = "toposimplify -p 1 -f < ". $path1.$file ." > ". $path2.$file;
-		
-		// quantize topojson 
+		else if ($argv[1] == 'simplify'){
+			$cli = "toposimplify -p 1 -f < ". $path1.$file ." > ". $path2.$file;
+		}
+		// quantize 1e5 topojson 
 		// $ topoquantize 1e5 < 16740_tract2-simple.topojson > 16740_tract2-simple-quantized.topojson
-		$cli = "topoquantize 1e5 < ". $path1.$file ." > ". $path2.$file;
-
-		// quantize topojson 
+		else if ($argv[1] == 'quantize-1e5'){
+			$cli = "topoquantize 1e5 < ". $path1.$file ." > ". $path2.$file;
+		}
+		// quantize 1e6 topojson 
 		// $ topoquantize 1e6 < 16740_tract2-simple.topojson > 16740_tract2-simple-quantized.topojson
-		$cli = "topoquantize 1e6 < ". $path1.$file ." > ". $path2.$file;
-
+		else if ($argv[1] == 'quantize-1e6'){
+			$cli = "topoquantize 1e6 < ". $path1.$file ." > ". $path2.$file;
+		}
 
 
 
