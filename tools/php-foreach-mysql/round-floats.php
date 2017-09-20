@@ -1,7 +1,8 @@
 <?php
 
 /**
- *	Loop through all DB tables, making changes
+ *	Loop through all DB tables, reformatting numbers per rules below
+ * 	Run on command line only, make sure MySQL / PHP have plenty of memory, and give it >2 hours on localhost
  */
 
 require __DIR__ . '/vendor/autoload.php';	// libs
@@ -35,13 +36,13 @@ function returnAllTableData($table){
 
 // get all tables in the database
 foreach (returnAllTables() as $t) {
-    //print_r ($table);
+    //print_r ($t);
 
-    $table = $t['Tables_in_regionalization_full'];
+    $table = $t['Tables_in_regionalization_full_slim'];
     $msa = substr($table, 0, 5);
 
     // testing
-	if ($table != '10180_gen_input_tracts_copy') continue;
+	//if ($table != '10180_gen_input_tracts_copy') continue;
 
     // if it is a table we want to use
     if ( is_numeric($msa) ){
