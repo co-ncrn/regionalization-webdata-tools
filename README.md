@@ -25,6 +25,17 @@ Copy all the original geojson tracts into new folder
 $ php ./php-geojson/geojson-copy.php
 ```
 
+Round floats in all MySQL tables
+```sh
+$ php ./php-foreach-mysql/round-floats.php
+```
+
+Export all MySQL tables as JSON scenarios
+```sh
+$ php ./php-foreach-mysql/export-json.php
+```
+
+
 
 
 Remove unwanted geojson properties
@@ -41,7 +52,3 @@ $ php ./php-geojson/geojson-to-topo.php convert-to-topo
 $ php ./php-geojson/geojson-to-topo.php convert-to-topo
 ```
 
-#### References
-
-Command-Line Cartography, Mike Bostock
-https://medium.com/@mbostock/command-line-cartography-part-1-897aa8f8ca2c
